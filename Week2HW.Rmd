@@ -1,0 +1,84 @@
+---
+title: "Democratic or Republican House"
+output: html_document
+date: "2022-08-29"
+---
+
+<font size="6"> **Overview** </font>
+
+[FiveThirtyEight's Political House Forecast](https://projects.fivethirtyeight.com/2018-midterm-election-forecast/house/) was developed to predict the change of each house of representative candidate winning in 2018. The data is separated into multiple variables, such as party, win probability, mean, median, and popular vote margin. 
+
+
+
+<font size="6"> **Data Dictionary** </font>
+
+*forecastdate* - date in which prediction occurred
+
+*state* - specify each state in the United States of America
+
+*party* - specify whether Democrat or Republican representative
+
+*model* - model used, whether classic, deluxe, or lite
+
+*win_probability(TARGET)* - prediction of representative winning
+
+*mean_seats* - average amount of seats
+
+*median_seats* - midpoint out of seats
+
+*p10_seats* - 10% of seats in house based on party
+
+*p90_seats* - 90% of seats in house based on party
+
+*margin* - popular vote margin
+
+*p10_margin* - 10% of popular vote margin
+
+*p90_margin* - 90% of popular vote margin
+
+
+
+<font size="6"> **Load Data** </font> 
+
+The data has header names, thus header will be 'True'. The target for this dataset will be the 'win_probability' column.
+
+```{r}
+path = 'https://raw.githubusercontent.com/AlphaCurse/DATA607/main/house_national_forecast.csv'
+house = read.table(file=path, header=TRUE, sep=',')
+df = data.frame(house)
+head(df)
+```
+
+
+
+<font size="6"> **Subset Data** </font>
+
+***Drop Column***
+
+Since all 'state' column values are the same and the 'forecastdate' column does not contribute much toward the probability, I see no value in including them in the dataset.
+
+```{r}
+edit_df = subset(df, select = -c(state, forecastdate))
+head(edit_df)
+```
+
+
+
+***Sort by Column***
+
+For better visualization, the dataframe will be sorted by the 'win_probability' column.
+```{r}
+sort_df = edit_df[order(-edit_df$win_probability),]
+```
+
+
+
+<font size="6"> **Conclusions** </font>
+
+To make a better conclusion of which party is probable to win seats in the house, the probability to win will be averaged over the Democratic and Republican parties respectively. From the data, we can determine the Democratic party has the highest probability to win majority seats in the house of representatives. The average for a democratic representative to win is 74.79% while a republican representative to win is 25.20%. From analyzing the 10 highest representatives probable to win, there is a 85.23% to 87.92% democrats will hold a seat.
+
+```{r}
+aggregate(sort_df$win_probability, list(sort_df$party), FUN=mean)
+head(sort_df, 10)
+```
+
