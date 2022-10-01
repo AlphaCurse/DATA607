@@ -1,0 +1,47 @@
+---
+title: "Assignment5 Tidy and Transform"
+author: "Tyler Brown"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Import Libraries
+```{r}
+library(tidyr)
+library(dplyr)
+```
+
+## Read the Data
+```{r}
+url = 'https://raw.githubusercontent.com/AlphaCurse/DATA607/main/flights.csv'
+df = read.csv(url)
+head(df)
+```
+
+## Tidy and Transform Data
+```{r}
+colnames(df)[1] = 'Airline'
+colnames(df)[2] = 'Status'
+colnames(df)[3] = 'Los_Angeles'
+colnames(df)[5] = 'San_Diego'
+colnames(df)[6] = 'San_Francisco'
+df = df %>%
+  filter(!row_number() %in% c(3))
+```
+
+## Analysis comparing arrival delays
+
+You can also embed plots, for example:
+
+```{r}
+df = df %>%
+  mutate(Total = select(., Los_Angeles, Pheonix, San_Diego, San_Francisco, Seattle) %>% rowSums(na.rm = TRUE))
+head(df)
+```
+Below, I have calculated the probability of a flight being delayed per airline. As we can see, Alaska has a 13% probability to be delayed, which is worse than AM West's probability of 10%. Customers may prefer to fly with AM West as oppose to Alaska due to the delay probability.
+```{r}
+alaska = (501/(501+3274))*100
+am_west = (787/(787+6438))*100
+alaska
+am_west
+```
