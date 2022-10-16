@@ -1,0 +1,26 @@
+[
+ {
+  "Title": "The Count of Monte Cristo",
+  "Author(s)": "Alexandre Dumas pere",
+  "Published": "05\/27\/2003",
+  "ISBN-10": 140449264,
+  "Pages": 1276,
+  "Price": 22.49
+ },
+ {
+  "Title": "Harry Potter and the Deathly Hallows",
+  "Author(s)": "J. K. Rowling",
+  "Published": "06\/01\/2009",
+  "ISBN-10": 545139708,
+  "Pages": 784,
+  "Price": 19.96
+ },
+ {
+  "Title": "The Talisman",
+  "Author(s)": "Stephen King, Peter Straub",
+  "Published": "09\/01\/2001",
+  "ISBN-10": 375507779,
+  "Pages": 656,
+  "Price": 78.99
+ }
+]

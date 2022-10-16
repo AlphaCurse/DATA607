@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <row>
+    <Title>The Count of Monte Cristo</Title>
+    <Author_x0028_s_x0029_>Alexandre Dumas pere</Author_x0028_s_x0029_>
+    <Published>5/27/2003</Published>
+    <ISBN-10>140449264</ISBN-10>
+    <Pages>1276</Pages>
+    <Price>22.49</Price>
+  </row>
+  <row>
+    <Title>Harry Potter and the Deathly Hallows</Title>
+    <Author_x0028_s_x0029_>J. K. Rowling</Author_x0028_s_x0029_>
+    <Published>6/1/2009</Published>
+    <ISBN-10>545139708</ISBN-10>
+    <Pages>784</Pages>
+    <Price>19.96</Price>
+  </row>
+  <row>
+    <Title>The Talisman</Title>
+    <Author_x0028_s_x0029_>Stephen King, Peter Straub</Author_x0028_s_x0029_>
+    <Published>9/1/2001</Published>
+    <ISBN-10>375507779</ISBN-10>
+    <Pages>656</Pages>
+    <Price>78.99</Price>
+  </row>
+</root>
