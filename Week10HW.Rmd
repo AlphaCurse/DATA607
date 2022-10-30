@@ -1,0 +1,51 @@
+---
+title: "Week 10 Assignment"
+author: "Tyler Brown"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Libraries
+
+```{r}
+library(tidyverse)
+library(jsonlite)
+library(stringr)
+```
+
+## Connect to the API
+
+```{r}
+popular_1 <- "https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key="
+key <- "6kVm5uwmkSYltKyaP9gorpK3XzhJeK27"
+path_1 <- paste(popular_1,key, sep = "")
+
+popular_7 <- "https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key="
+key <- "6kVm5uwmkSYltKyaP9gorpK3XzhJeK27"
+path_7 <- paste(popular_7,key, sep = "")
+
+popular_30 <- "https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key="
+key <- "6kVm5uwmkSYltKyaP9gorpK3XzhJeK27"
+path_30 <- paste(popular_30,key, sep = "")
+```
+
+## Transform from JSON to R Dataframe
+
+```{r}
+df_1 <- fromJSON(path_1) %>%
+  data.frame()
+
+df_7 <- fromJSON(path_7) %>% 
+  data.frame()
+
+df_30 <- fromJSON(path_30) %>%
+  data.frame()
+```
+
+## View Dataframes
+
+```{r pressure, echo=FALSE}
+View(df_1)
+View(df_7)
+View(df_30)
+```
