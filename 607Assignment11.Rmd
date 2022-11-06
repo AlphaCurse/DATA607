@@ -1,0 +1,94 @@
+---
+title: "607 Assignment 11"
+author: "Tyler Brown"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+In Text Mining with R, Chapter 2 looks at Sentiment Analysis.  In this assignment, you should start by getting the primary example code from chapter 2 working in an R Markdown document.  You should provide a citation to this base code.  You’re then asked to extend the code in two ways:
+
+Work with a different corpus of your choosing, and
+Incorporate at least one additional sentiment lexicon (possibly from another R package that you’ve found through research).
+
+
+## Load Libraries
+```{r Libraries}
+library(tidyverse)
+library(tidytext)
+library(janeaustenr)
+library(tidyr)
+library(dplyr)
+library(stringr)
+library(wordcloud)
+```
+
+
+## Load the Data
+The txt file is imported from prakhar21's github where the complete Book 1 - The Philosopher's Stone was uploaded via https://github.com/formcept/whiteboard/blob/master/nbviewer/notebooks/data/harrypotter/Book%201%20-%20The%20Philosopher%27s%20Stone.txt
+```{r Load Data}
+hp = read.delim("https://raw.githubusercontent.com/formcept/whiteboard/master/nbviewer/notebooks/data/harrypotter/Book%201%20-%20The%20Philosopher's%20Stone.txt")
+head(hp)
+```
+
+## Convert Data to Tidy
+```{r Convert Data to Tidy}
+hp = hp %>%
+  filter(X. != "") %>%
+  mutate(linenumber = row_number())
+
+hp
+```
+
+## Lexicon
+For this sentiment analysis, I have used bing lexicon. Bing sentiment lexicon categorizes words in a binary fashion, either positive or negative. The text will be unnested into word from the "X." column. 
+```{r Bing Lexicon }
+total_hp = hp %>%
+  unnest_tokens(word, X.) %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  group_by(sentiment) %>%
+  top_n(10) %>% ungroup() %>%
+  mutate(word=reorder(word, n)) %>%
+  anti_join(stop_words)
+
+names(total_hp) = c("word", "sentiment", "freq")
+
+ggplot(data = total_hp, aes(x = word, y = freq, fill = sentiment)) + geom_bar(stat = "identity") + coord_flip() + facet_wrap(~sentiment, scales = "free_y") + labs(x = NULL, y = "sentiment")
+```
+As we can see from the graphs above, words such as dark, fell, and lost were categorized as negative sentiments while magic and top were positive. There are far greater negative sentiments than positives and the total number of negative sentiments outweigh that of the positives.
+
+
+For the next sentiment analysis, I have used nrc lexicon. nrc sentiment lexicon associates words with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive). The text will be unnested into word from the "X." column. 
+```{r NRC Lexicon}
+nrc_hp = hp %>%  
+  unnest_tokens(word, X.) %>%
+  inner_join(get_sentiments("nrc")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  group_by(sentiment) %>%
+  top_n(10) %>% ungroup() %>%
+  mutate(word=reorder(word, n)) %>%
+  anti_join(stop_words) %>%
+  filter(word != "harry")
+
+names(nrc_hp) = c("word", "sentiment", "freq")
+
+ggplot(data = nrc_hp, aes(x = word, y = freq, fill = sentiment)) + geom_bar(stat = "identity") + coord_flip() + facet_wrap(~sentiment, scales = "free_y") + labs(x = NULL, y = "sentiment") + theme(text = element_text(size = 8), element_line(size = 1))
+```
+From the graphs above, we can determine "stone" was used frequently in many emotional ways, such as anger and negative. Alternatively, "professor" was used in a postive emotional way, which displayed trust primarily. Many positive and trust sentiments are similar in value, where as many anger and negative sentiments are similar.
+
+
+With wordcloud, we can identify the most common words in the Harry Potter novel.
+```{r WordCloud}
+word_count = hp %>%
+  unnest_tokens(word, X.) %>%
+  anti_join(stop_words) %>%
+  count(word, sort = TRUE) %>%
+  filter(word != "â")
+
+word_count %>%
+  with(wordcloud(word, n, max.words = 100))
+```
+
+## Conclusion
+
+Sentiment analysis can provide a new way in understanding the opinions and emotions expressed in text. It can be used to understand how a narrative arc can change throughout the story. Names should be excluded when conducting this analysis as it can skew the visualizations unnecessarily. Initially, the name "harry" was used far more than any other word and was used in anger, negative, and positive context. A new corpus was added and a sentiment analysis was applied to the Harry Potter novel provided through GitHub.
