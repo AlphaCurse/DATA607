@@ -1,0 +1,26 @@
+---
+title: "Twitch"
+author: "Tyler Brown"
+date: "11/05/2022"
+output: pdf_document
+---
+
+## Background
+Twitch is a video streaming platform where users can stream content that other users can view. The platform began with gaming primarily, then dabbled into other areas such as traveling, "hot tub streams", or just chatting.
+
+## Who are the target users?
+A target user are people who enjoy gaming and would like to make a profit (someday) doing it called streamers. Streamers can create revenue through subscriptions, donations, or advertisements. Another target user is corporations that would like millions of platform users to view and purchase their product or services.
+
+## What are their key goals?
+Twitch's key goals are to build a profitable platform for gamers to share their experiences, game together, and build connections online. As all business, profit is always a motivator as advertising on their website allows the advertising companies to provide compenasation for exposure.
+
+## How can you help accomplish those goals?
+Through data analytics, we can lure gamers on other websites, such as Youtube or social media, toward twitch, which allows for more viewers and more ads being viewed. With more exposure, you can have additional inspired streamers to work for Twitch.
+
+## Reverse Engineering
+The company's recommendation system is designed to understand and predict user interest and behaviors. It will make recommendations based on this information as an integral tool for user browsing and engagement on the platform. 
+
+## Suggestions for possible improvement
+As time went on, Twitch faced many lawsuits from companies like DMCA, where streamers used copyrighted music to keep entertainment going for viewers. I believe if money were to be invested to DMCA, those copyrights could be available to all streamers and allow for more freedom across the platform. Additionally, many streamers are taking advantage of "lonely" gamers by offering hot tub streams, where the streamer will chat with the viewers while in a swimsuit in a hot tub. I feel this is not what the platform was built on and it turns viewers away from twitch. A policy should be put in place where non-revealing clothing should be worn to stream.
+
+https://towardsdatascience.com/building-a-growth-focused-game-recommender-for-twitch-streamers-7389e3868f2e
