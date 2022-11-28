@@ -1,0 +1,23 @@
+---
+title: "Final Project"
+author: "Khyati & Tyler"
+date: "2022-11-27"
+output: html_document
+---
+
+```{r Library}
+
+```
+
+API Census Link: https://api.census.gov/data/2019/acs/acs1/profile?get=group(DP03)&for=metropolitan%20statistical%20area/micropolitan%20statistical%20area:*
+
+```{r Load Data}
+census = read.csv('https://raw.githubusercontent.com/AlphaCurse/DATA607/main/uscensus_metro-micro_areas.csv')
+zillow = read.csv('https://raw.githubusercontent.com/AlphaCurse/DATA607/main/metro_zillow_housing.csv')
+```
+
+```{r View Data}
+View(census)
+View(zillow)
+```
+
