@@ -1,0 +1,65 @@
+---
+title: "SpamAssassin"
+author: "Tyler Brown"
+date: "2022-12-01"
+output: html_document
+---
+
+```{r Packages}
+library(tm)
+library(stringr)
+library(SnowballC)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+library(tidytext)
+library(wordcloud)
+library(caret)
+library(gbm)
+library(e1071)
+```
+
+## Load Data
+
+```{r Ham}
+ham = Corpus(DirSource("C:/Users/paola/Downloads/spamham/easy_ham_2"), readerControl=list(reader=readPlain))
+length(ham)
+```
+
+```{r Spam}
+spam = Corpus(DirSource("C:/Users/paola/Downloads/spamham/spam_2"), readerControl=list(reader=readPlain))
+length(spam)
+```
+
+
+## Analyze the Data
+```{r}
+ham_docs = ham
+ham_docs = tm_map(ham_docs, content_transformer(tolower))
+ham_docs = tm_map(ham_docs, removeWords, stopwords("english"))
+ham_docs = tm_map(ham_docs, removeNumbers)
+
+a = TermDocumentMatrix(ham_docs)
+b = as.matrix(a)
+c = sort(rowSums(b), decreasing = TRUE)
+ham_df = data.frame(word = names(c), freq=c)
+head(ham_df)
+```
+
+```{r}
+spam_docs = spam
+spam_docs = tm_map(spam_docs, content_transformer(tolower))
+spam_docs = tm_map(spam_docs, removeWords, stopwords("english"))
+spam_docs = tm_map(spam_docs, removeNumbers)
+
+d = TermDocumentMatrix(spam_docs)
+e = as.matrix(d)
+f = sort(rowSums(e), decreasing = TRUE)
+spam_df = data.frame(word = names(f), freq=f)
+head(spam_df)
+```
+
+
+## Conclusion
+
+The most common words in both the spam and ham files are "received:", which is to be expected as messages need confirmation of delivery. For the ham files, "aus" seems to be the most common word while the spam files use "<td" as the most common "word".
